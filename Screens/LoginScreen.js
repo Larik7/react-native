@@ -15,21 +15,27 @@ export function Login() {
         source={require("../images/Photo-BG.jpg")}
       >
         <View style={styles.formContainer}>
-          <Text style={styles.formTitle}>Login</Text>
+          <Text style={styles.formTitle} marginTop={32}>
+            Увійти
+          </Text>
           <View>
             <TextInput
               style={styles.input}
-              textAlign={"center"}
-              placeholder="Email"
+              marginTop={33}
+              placeholder="Адреса електронної пошти"
             />
             <TextInput
               style={styles.input}
-              textAlign={"center"}
-              placeholder="Password"
+              marginTop={16}
+              secureTextEntry={true}
+              placeholder="Пароль"
             />
           </View>
-          <TouchableOpacity style={styles.registrationBtn}>
-            <Text style={styles.registrationTitle}>Login</Text>
+          <TouchableOpacity activeOpacity={0.7} style={styles.registrationBtn}>
+            <Text style={styles.registrationTitle}>Увійти</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.registrBtn}>
+            <Text style={styles.toRegistr}>Немає акаунту? Зареєструватися</Text>
           </TouchableOpacity>
         </View>
       </ImageBackground>
@@ -45,8 +51,7 @@ const styles = StyleSheet.create({
   imageBg: {
     flex: 1,
     resizeMode: "cover",
-    justifyContent: "center",
-    // alignItems: "center",
+    justifyContent: "flex-end",
   },
   formContainer: {
     height: 450,
@@ -65,8 +70,32 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     height: 50,
     marginHorizontal: 16,
+    padding: 16,
     backgroundColor: "#F6F6F6",
     color: "#BDBDBD",
+  },
+  registrationBtn: {
+    backgroundColor: "#FF6C00",
+    marginTop: 43,
+    marginHorizontal: 16,
+    height: 50,
+    borderRadius: 100,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  registrationTitle: {
+    fontSize: 16,
+    color: "#ffffff",
+    fontWeight: 400,
+  },
+  registrBtn: {
     marginTop: 16,
+    marginHorizontal: 16,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  toRegistr: {
+    color: "#1B4371",
+    // textAlign: "center",
   },
 });
