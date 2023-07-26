@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,55 +7,93 @@ import {
   ImageBackground,
   Image,
   TouchableOpacity,
+  Platform,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 
 export function Register() {
+  // const [isShowKeyboardIOS, setIsShowKeyboardIOS] = useState(false);
+
+  // Platform.OS === "ios"
+  //                 ? {
+  //                     ...styles.formContainer,
+  //                     height: isShowKeyboardIOS ? 350 : 600,
+  //                   }
+  //                 :
+
+  const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+
+  const keyboardHide = () => {
+    setIsShowKeyboard(true);
+    Keyboard.dismiss();
+  };
+
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        style={styles.imageBg}
-        source={require("../images/Photo-BG.jpg")}
-      >
-        <View style={styles.formContainer}>
-          <View style={styles.avatar}>
-            <TouchableOpacity style={styles.addAvatarBtn}>
-              <Image
-                style={styles.addBtn}
-                source={require("../images/addBtn.png")}
-                //   style={{ width: 500, height: 500 }}
-              />
-            </TouchableOpacity>
-          </View>
-          <Text style={styles.formTitle} marginTop={92}>
-            Реєстрація
-          </Text>
-          <View>
-            <TextInput
-              style={styles.input}
-              marginTop={33}
-              placeholder="Логін"
-            />
-            <TextInput
-              style={styles.input}
-              marginTop={16}
-              placeholder="Адреса електронної пошти"
-            />
-            <TextInput
-              style={styles.input}
-              marginTop={16}
-              secureTextEntry={true}
-              placeholder="Пароль"
-            />
-          </View>
-          <TouchableOpacity activeOpacity={0.7} style={styles.registrationBtn}>
-            <Text style={styles.registrationTitle}>Зареєстуватися</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.loginBtn}>
-            <Text style={styles.toLogin}>Вже є акаунт? Увійти</Text>
-          </TouchableOpacity>
-        </View>
-      </ImageBackground>
-    </View>
+    <TouchableWithoutFeedback onPress={keyboardHide}>
+      <View style={styles.container}>
+        <ImageBackground
+          style={styles.imageBg}
+          source={require("../images/Photo-BG.jpg")}
+        >
+          <KeyboardAvoidingView
+            behavior={Platform.OS == "ios" ? "padding" : "height"}
+          >
+            <View
+              style={{
+                ...styles.formContainer,
+                marginBottom: isShowKeyboard ? 120 : 0,
+              }}
+            >
+              <View style={styles.avatar}>
+                <TouchableOpacity style={styles.addAvatarBtn}>
+                  <Image
+                    style={styles.addBtn}
+                    source={require("../images/addBtn.png")}
+                    //   style={{ width: 500, height: 500 }}
+                  />
+                </TouchableOpacity>
+              </View>
+              <Text style={styles.formTitle} marginTop={92}>
+                Реєстрація
+              </Text>
+              <View>
+                <TextInput
+                  style={styles.input}
+                  marginTop={33}
+                  onFocus={() => setIsShowKeyboard(true)}
+                  placeholder="Логін"
+                />
+                <TextInput
+                  style={styles.input}
+                  marginTop={16}
+                  onFocus={() => setIsShowKeyboard(true)}
+                  placeholder="Адреса електронної пошти"
+                />
+                <TextInput
+                  style={styles.input}
+                  marginTop={16}
+                  onFocus={() => setIsShowKeyboard(true)}
+                  secureTextEntry={true}
+                  placeholder="Пароль"
+                />
+              </View>
+              <TouchableOpacity
+                activeOpacity={0.7}
+                style={styles.registrationBtn}
+                onPress={keyboardHide}
+              >
+                <Text style={styles.registrationTitle}>Зареєстуватися</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.loginBtn}>
+                <Text style={styles.toLogin}>Вже є акаунт? Увійти</Text>
+              </TouchableOpacity>
+            </View>
+          </KeyboardAvoidingView>
+        </ImageBackground>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -73,6 +112,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
+    marginBottom: 0,
   },
   avatar: {
     width: 120,
