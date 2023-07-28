@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as Font from "expo-font";
-// import { AppLoading } from "expo";
+import { AppLoading } from "expo";
 import {
   StyleSheet,
   Text,
@@ -12,6 +12,7 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
+  Dimensions,
 } from "react-native";
 
 const initialState = {
@@ -30,7 +31,7 @@ const loadFonts = async () => {
 export function Register() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
-  // const [isReady, setIsReady] = useState(false);
+  const [isReady, setIsReady] = useState(false);
 
   const keyboardHide = () => {
     setIsShowKeyboard(false);
@@ -38,6 +39,20 @@ export function Register() {
     setState(initialState);
     console.log(state);
   };
+
+  useEffect(()=>{
+    const onChange = () => {
+      const width = Dimensions.get("window").width
+    }
+    Dimensions.addEventListener("change", onChange);
+    return () => {
+      Dimensions.removeEventListener("change", onChange);
+    }
+  }, [])
+
+  if (!isReady) {
+    return <AppLoading startAsync={loadFonts} onFinish={() => setIsReady(true)} onError={console.warn}/>
+  }
 
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
